@@ -6,5 +6,5 @@ import com.example.nativeandroid.network.RetrofitClient
 class DataRepository {
     private val retrofit = RetrofitClient.getRetrofitInstance().create(ApiEndPoint::class.java)
 
-    fun getAllRepository(query : String) = retrofit.getAllCoworkSpaces()
+    fun getAllCoworkSpaces() = retrofit.getAllCoworkSpaces()
 }

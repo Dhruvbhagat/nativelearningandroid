@@ -23,7 +23,7 @@ class MainViewModel(private val repository: DataRepository, private val context:
     }
 
     private fun makeApiCall() {
-        repository.getAllRepository(repo).enqueue(object : retrofit2.Callback<List<CoworkingSpace>> {
+        repository.getAllCoworkSpaces(repo).enqueue(object : retrofit2.Callback<List<CoworkingSpace>> {
             override fun onFailure(call: Call<List<CoworkingSpace>?>, t: Throwable) {
                 responseData.value = fetchJson()
             }
