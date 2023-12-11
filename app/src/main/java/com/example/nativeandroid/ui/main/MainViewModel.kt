@@ -15,7 +15,6 @@ import java.lang.reflect.Type
 class MainViewModel(private val repository: DataRepository, private val context: Context?) : ViewModel() {
 
     private val jsonFile = "coworking-spaces.json"
-    private val repo = "kotlin"
     val responseData = MutableLiveData<List<CoworkingSpace>?>()
 
     init {
@@ -23,7 +22,7 @@ class MainViewModel(private val repository: DataRepository, private val context:
     }
 
     private fun makeApiCall() {
-        repository.getAllCoworkSpaces(repo).enqueue(object : retrofit2.Callback<List<CoworkingSpace>> {
+        repository.getAllCoworkSpaces().enqueue(object : retrofit2.Callback<List<CoworkingSpace>> {
             override fun onFailure(call: Call<List<CoworkingSpace>?>, t: Throwable) {
                 responseData.value = fetchJson()
             }
