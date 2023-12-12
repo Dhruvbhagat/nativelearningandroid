@@ -1,13 +1,17 @@
 package com.example.nativeandroid.ui.main
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import android.widget.Toast
-import com.example.nativeandroid.R
+import androidx.databinding.library.baseAdapters.BR
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.nativeandroid.data.CoworkingSpace
 import com.example.nativeandroid.data.DataRepository
+import com.example.nativeandroid.databinding.FragmentMainBinding
+
 
 class MainFragment : Fragment() {
     companion object {
@@ -16,41 +20,44 @@ class MainFragment : Fragment() {
 
     private val errorText = "Error Fetching Data"
 
-    private var messageView: TextView? = null
-
     private lateinit var viewModel: MainViewModel
+    private lateinit var _binding: FragmentMainBinding
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        viewModel = MainViewModel(repository = DataRepository(), context = context)
-    }
+    private val binding get() = _binding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val view: View = inflater.inflate(R.layout.fragment_main, container, false)
-        messageView = view.findViewById(R.id.message)
+
+        _binding = FragmentMainBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        viewModel = MainViewModel(repository = DataRepository(), context = context)
+
+        binding.setVariable(BR.viewModel, viewModel)
+        binding.executePendingBindings()
+
+        binding.recyclerView.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            val decoration = DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL)
+            addItemDecoration(decoration)
+        }
 
         initObserver()
-
-        return view
     }
 
     private fun initObserver() {
         viewModel.responseData.observe(viewLifecycleOwner) {
             if (it != null) {
-                for (item in it) {
-                    if (messageView == null) {
-                        continue
-                    }
+                binding.progressbar.visibility = View.INVISIBLE
 
-                    messageView?.text = buildString {
-                        append(messageView?.text?.toString())
-                        append("\n\n")
-                        append(item.toString())
-                    }
-                }
+                val data: ArrayList<CoworkingSpace> = ArrayList(it)
+                viewModel.setAdapterData(data)
             } else {
                 Toast.makeText(requireContext(), errorText, Toast.LENGTH_LONG).show()
             }

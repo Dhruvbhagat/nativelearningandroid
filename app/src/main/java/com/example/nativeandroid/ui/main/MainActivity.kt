@@ -1,8 +1,8 @@
-package com.example.nativeandroid
+package com.example.nativeandroid.ui.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.nativeandroid.ui.main.MainFragment
+import com.example.nativeandroid.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

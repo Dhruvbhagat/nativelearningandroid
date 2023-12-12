@@ -1,10 +1,10 @@
-package com.example.nativeandroid
+package com.example.nativeandroid.utils
 
 import android.content.Context
 import java.io.IOException
 
 
-class JsonExtension {
+class JsonUtil {
     fun loadJSONFromAsset(context: Context, fileName: String): String? {
         var json: String? = null
         json = try {
