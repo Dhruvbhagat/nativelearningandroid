@@ -9,8 +9,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
+            android:orientation="vertical"
+            android:id="@+id/recyclerViewParent"
+            android:clickable="true">
             <TextView android:id="@+id/nameTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -18,13 +19,13 @@
                 android:layout_margin="10dp"
                 android:textStyle="bold"
                 android:text='@{coworkingSpaceData.organisation}'/>
-
             <TextView android:id="@+id/descTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
                 android:layout_marginStart="10dp"
-                android:text='@{coworkingSpaceData.address ?? "No Address avaialable"}'
-                />
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:text='@{coworkingSpaceData.address ?? "No Address avaialable"}' />
         </LinearLayout>
 </layout>

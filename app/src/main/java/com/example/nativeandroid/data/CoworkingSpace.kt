@@ -1,6 +1,7 @@
 package com.example.nativeandroid.data
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class CoworkingSpace (
   @SerializedName("organisation" ) var organisation : String?   = null,
@@ -9,4 +10,4 @@ data class CoworkingSpace (
   @SerializedName("latitude"     ) var latitude     : Double?   = null,
   @SerializedName("longitude"    ) var longitude    : Double?   = null,
   @SerializedName("geopoint"     ) var geopoint     : Geopoint? = Geopoint()
-)
+) : Serializable
